@@ -108,28 +108,41 @@
     var rows = NEWS.filter(function(n){ return newsYear==='ALL' || n.date.indexOf(newsYear)===0; });
     l.innerHTML = rows.map(newsRow).join('');
   }
-  var projCat='ALL', projKind='ALL';
+  // 프로젝트 필터 카테고리 (고정 목록) — 키는 PROJECTS 의 필드명
+  var PROJ_FILTERS = [
+    {f:'k', lbl:'Type',     opts:['SI','ITO','Solution','기타','인프라']},
+    {f:'c', lbl:'Industry', opts:['공공','기타','기타 금융','미디어/ENT','보험','서비스','은행','저축은행','증권']},
+    {f:'s', lbl:'Status',   opts:['진행중','완료']}
+  ];
+  var projSel={k:'ALL', c:'ALL', s:'ALL'}, projPage=1, PROJ_PER=9;
   function renderProjects(){
-    var f=$('#projFilters'), g=$('#projGrid'); if(!g) return;
-    var cats=['ALL'].concat(PROJECTS.map(function(p){return p.c;}).filter(function(v,i,a){return a.indexOf(v)===i;}));
-    var kinds=['ALL'].concat(PROJECTS.map(function(p){return p.k;}).filter(function(v,i,a){return a.indexOf(v)===i;}));
-    function grp(lbl,arr,cur,attr){
-      return '<div class="fgrp"><em>'+lbl+'</em>'+arr.map(function(v){
-        var n = v==='ALL'? PROJECTS.length : PROJECTS.filter(function(p){return attr==='data-c'? p.c===v : p.k===v;}).length;
-        return '<button class="fbtn'+(v===cur?' is-on':'')+'" type="button" '+attr+'-filter="'+v+'">'+(v==='ALL'?'전체':v)+'<b>'+n+'</b></button>';
-      }).join('')+'</div>';
-    }
-    f.innerHTML = grp('업권',cats,projCat,'data-c')+'<div style="height:10px;width:100%"></div>'+grp('구분',kinds,projKind,'data-k');
-    $$('[data-c]',f).forEach(function(b){ b.addEventListener('click',function(){ projCat=b.getAttribute('data-c'); renderProjects(); }); });
-    $$('[data-k]',f).forEach(function(b){ b.addEventListener('click',function(){ projKind=b.getAttribute('data-k'); renderProjects(); }); });
+    var f=$('#projFilters'), g=$('#projGrid'), pg=$('#projPager'); if(!g) return;
+    f.innerHTML = PROJ_FILTERS.map(function(grp){
+      return '<div class="fgrp"><em>'+grp.lbl+'</em><div class="fgrp__opts">'+['ALL'].concat(grp.opts).map(function(v){
+        var n = v==='ALL'? PROJECTS.length : PROJECTS.filter(function(p){return p[grp.f]===v;}).length;
+        return '<button class="fbtn'+(v===projSel[grp.f]?' is-on':'')+'" type="button" data-pf="'+grp.f+'" data-pv="'+esc(v)+'">'+(v==='ALL'?'전체':esc(v))+'<b>'+n+'</b></button>';
+      }).join('')+'</div></div>';
+    }).join('');
+    $$('[data-pf]',f).forEach(function(b){ b.addEventListener('click',function(){ projSel[b.getAttribute('data-pf')]=b.getAttribute('data-pv'); projPage=1; renderProjects(); }); });
     var rows = PROJECTS.map(function(p,i){ p._i=i; return p; }).filter(function(p){
-      return (projCat==='ALL'||p.c===projCat) && (projKind==='ALL'||p.k===projKind);
+      return PROJ_FILTERS.every(function(grp){ var v=projSel[grp.f]; return v==='ALL' || p[grp.f]===v; });
     });
+    var pages = Math.max(1, Math.ceil(rows.length/PROJ_PER));
+    if(projPage>pages) projPage=pages;
     var cnt=$('#projCount'); if(cnt) cnt.textContent = rows.length + ' Projects';
     $('#projEmpty').style.display = rows.length? 'none':'block';
-    g.innerHTML = rows.map(function(p){
+    var nums=''; for(var n=1;n<=pages;n++) nums+='<button type="button" data-pg="'+n+'"'+(n===projPage?' class="is-on" aria-current="page"':'')+'>'+n+'</button>';
+    pg.innerHTML = pages>1
+      ? '<button type="button" data-pg="'+(projPage-1)+'" aria-label="이전 페이지"'+(projPage===1?' disabled':'')+'>&lsaquo;</button>'+nums
+        +'<button type="button" data-pg="'+(projPage+1)+'" aria-label="다음 페이지"'+(projPage===pages?' disabled':'')+'>&rsaquo;</button>'
+      : '';
+    $$('[data-pg]',pg).forEach(function(b){ b.addEventListener('click',function(){
+      projPage=parseInt(b.getAttribute('data-pg'),10); renderProjects();
+      window.scrollTo({top: f.getBoundingClientRect().top + window.pageYOffset - 120, behavior:'smooth'});
+    }); });
+    g.innerHTML = rows.slice((projPage-1)*PROJ_PER, projPage*PROJ_PER).map(function(p){
       return '<a class="proj" href="#/business/projects/'+p._i+'" data-nav>'
-        +'<div class="proj__meta"><span class="on">'+esc(p.k)+'</span><span>'+esc(p.c)+'</span><span>'+p.y+'</span><span>'+esc(p.s)+'</span></div>'
+        +'<div class="proj__meta"><span>'+esc(p.k)+'</span><span>'+esc(p.c)+'</span><span>'+p.y+'</span><span'+(p.s==='진행중'?' class="on"':'')+'>'+esc(p.s)+'</span></div>'
         +'<h3>'+esc(p.t)+'</h3>'
         +'<span class="proj__cl">'+esc(p.cl)+'</span>'
         +'<div class="proj__foot"><time>'+esc(p.d)+'</time>'+ARROW+'</div></a>';
@@ -148,23 +161,27 @@
   }
 
   /* ---------- detail renderers ---------- */
+  // 뉴스 상세 기본 이미지 (NEWS 항목에 img 가 없을 때 순서대로 배정되는 임시 이미지)
+  var NEWS_IMG = [
+    'https://sspark.genspark.ai/i/LQUexAFNNy5Sb1S4?width=2560',
+    'https://sspark.genspark.ai/i/3PI5h8miWB31PKm5?width=2560',
+    'https://sspark.genspark.ai/i/hh772FOUwVOPvuJM?width=2560',
+    'https://sspark.genspark.ai/i/fH7KyLyOjilFM6U8?width=2560',
+    'https://sspark.genspark.ai/i/DwACFArSqNNVmRDL?width=2560',
+    'https://sspark.genspark.ai/i/B9Z7d9ONrrV2J2IP?width=2560'
+  ];
   function renderNewsDetail(id){
     var n = null; NEWS.forEach(function(x){ if(x.id===id) n=x; });
     if(!n){ location.hash='#/company/news'; return; }
     $('#ndCrumb').innerHTML = '<a href="#/" data-nav>Home</a><i>/</i><a href="#/company/news" data-nav>News&amp;Notices</a><i>/</i><span>'+esc(n.tag)+'</span>';
     $('#ndHead').innerHTML = '<h1 class="h-lg" style="font-size:clamp(26px,3.4vw,44px);max-width:30ch">'+esc(n.ttl)+'</h1>'
       +'<div class="phero__meta"><span class="chip chip--blue">'+esc(n.tag)+'</span><span class="chip">'+n.date+'</span><span class="chip">미래아이엔텍</span></div>';
-    $('#ndBody').innerHTML = '<div class="dtl__body reveal is-in"><h2>게시 내용</h2>'
+    var img = n.img || NEWS_IMG[NEWS.indexOf(n) % NEWS_IMG.length];
+    $('#ndBody').innerHTML = '<div class="dtl__body reveal is-in">'
+      + '<figure class="dtl__fig" style="margin-top:0"><img src="'+esc(img)+'" alt="'+esc(n.ttl)+' 관련 이미지"></figure>'
+      + '<h2>게시 내용</h2>'
       + n.body.map(function(p){return '<p>'+esc(p)+'</p>';}).join('')
-      + '<p class="note"><b>※ 안내</b> — 위 본문은 게시물 제목에 담긴 사실을 바탕으로 정리한 요약입니다. 실제 게시물의 전체 본문(이미지·첨부 포함)을 입력하는 영역이며, 임의의 내용을 추가하지 않았습니다.</p>'
-      + '<h2>문의</h2><p>관련 사업 및 협력 문의는 대표번호 02-557-5267 또는 mrint01@mrint.co.kr 로 연락해 주세요.</p>'
-      + '<p style="margin-top:26px"><a class="btn btn--blue" href="#/contact" data-nav><span>문의하기</span></a></p>'
-      + '</div><aside class="dtl__side reveal is-in"><dl>'
-      + '<div><dt>Category</dt><dd>'+esc(n.tag)+'</dd></div>'
-      + '<div><dt>Date</dt><dd>'+n.date+'</dd></div>'
-      + '<div><dt>Author</dt><dd>미래아이엔텍</dd></div>'
-      + '<div><dt>Contact</dt><dd>02-557-5267<br>mrint01@mrint.co.kr</dd></div>'
-      + '</dl></aside>';
+      + '</div>';
     var i = NEWS.indexOf(n);
     $('#ndNav').textContent = '게시물 '+(i+1)+' / '+NEWS.length;
     document.title = n.ttl+' | 미래아이엔텍 MRINT';
@@ -173,28 +190,32 @@
     var p = PROJECTS[i];
     if(!p){ location.hash='#/business/projects'; return; }
     $('#pdCrumb').innerHTML = '<a href="#/" data-nav>Home</a><i>/</i><a href="#/business/projects" data-nav>Projects</a><i>/</i><span>'+esc(p.k)+'</span>';
-    $('#pdHead').innerHTML = '<h1 class="h-lg" style="font-size:clamp(26px,3.4vw,44px);max-width:30ch">'+esc(p.t)+'</h1>'
-      +'<div class="phero__meta"><span class="chip chip--blue">'+esc(p.k)+'</span><span class="chip">'+esc(p.c)+'</span><span class="chip">'+p.y+'</span><span class="chip">'+esc(p.s)+'</span></div>';
-    var ov = p.ov ? '<p>'+esc(p.ov)+'</p>'
-      : '<p class="note"><b>※ 안내</b> — 본 프로젝트의 상세 개요는 자사 홈페이지에 공개되지 않아 임의로 작성하지 않았습니다. 실제 프로젝트 개요·수행 범위를 입력하는 영역입니다.</p>';
-    $('#pdBody').innerHTML = '<div class="dtl__body reveal is-in"><h2>프로젝트 개요</h2>'+ov
-      + '<h2>수행 정보</h2><ul>'
-      + '<li>구분 : '+esc(p.k)+'</li><li>업권 : '+esc(p.c)+'</li><li>연도 : '+p.y+'</li>'
-      + '<li>상태 : '+esc(p.s)+'</li><li>고객사 : '+esc(p.cl)+'</li>'
-      + (p.p? '<li>수행 기간 : '+esc(p.p)+'</li>' : '')
-      + '</ul>'
-      + '<figure class="dtl__fig"><img src="'+(p.k==='SI'?'https://sspark.genspark.ai/i/3PI5h8miWB31PKm5?width=2560':(p.k==='ITO'?'https://sspark.genspark.ai/i/LQUexAFNNy5Sb1S4?width=2560':'https://sspark.genspark.ai/i/hh772FOUwVOPvuJM?width=2560'))+'" alt="'+esc(p.t)+' 관련 이미지"><figcaption>'+esc(p.t)+' — '+esc(p.cl)+'</figcaption></figure>'
-      + '<h2>관련 사업 영역</h2><p>본 프로젝트는 미래아이엔텍의 '+esc(p.k)+' 사업 영역에 해당합니다. 유사한 시스템 구축·운영 프로젝트에 대한 상담은 아래 문의 채널을 이용해 주세요.</p>'
-      + '<p style="margin-top:26px;display:flex;gap:10px;flex-wrap:wrap"><a class="btn btn--line btn--sm" href="#/business/business-line/'+(p.k==='SI'?'si':(p.k==='ITO'?'ito':'solution'))+'" data-nav><span>사업 영역 보기</span></a><a class="btn btn--blue btn--sm" href="#/contact" data-nav><span>문의하기</span></a></p>'
-      + '</div><aside class="dtl__side reveal is-in"><dl>'
-      + '<div><dt>Type</dt><dd>'+esc(p.k)+'</dd></div>'
-      + '<div><dt>Client</dt><dd>'+esc(p.cl)+'</dd></div>'
-      + '<div><dt>Sector</dt><dd>'+esc(p.c)+'</dd></div>'
-      + '<div><dt>Year</dt><dd>'+p.y+'</dd></div>'
-      + (p.p? '<div><dt>Period</dt><dd>'+esc(p.p)+'</dd></div>':'')
-      + '<div><dt>Status</dt><dd>'+esc(p.s)+'</dd></div>'
-      + '</dl></aside>';
-    document.title = p.t+' | 미래아이엔텍 MRINT';
+    $('#pdHead').innerHTML = projHead(p);
+    $('#pdBody').innerHTML = projBody(p);
+    return p.t+' | 미래아이엔텍 MRINT';
+  }
+  /* 프로젝트 상세 공통 (Projects 탭 · Team > Related Projects 가 같은 형식을 사용) */
+  var PH = '설명이 들어갈 내용입니다.';
+  function projIdx(t){ for(var i=0;i<PROJECTS.length;i++){ if(PROJECTS[i].t===t) return i; } return -1; }
+  function projTxt(v){ return v ? esc(v) : '<span style="color:var(--ink-40)">'+PH+'</span>'; }
+  function projHead(p){
+    return '<h1 class="h-lg" style="font-size:clamp(26px,3.4vw,44px);max-width:30ch">'+esc(p.t)+'</h1>'
+      +'<div class="phero__meta">'+(p.k?'<span class="chip chip--blue">'+esc(p.k)+'</span>':'')
+      +(p.s?'<span class="chip">'+esc(p.s)+'</span>':'')+'<span class="chip">'+p.y+'</span></div>';
+  }
+  function projBody(p){
+    var img = p.img || (p.k==='SI'?'https://sspark.genspark.ai/i/3PI5h8miWB31PKm5?width=2560':(p.k==='ITO'?'https://sspark.genspark.ai/i/LQUexAFNNy5Sb1S4?width=2560':'https://sspark.genspark.ai/i/hh772FOUwVOPvuJM?width=2560'));
+    return '<div class="dtl__body reveal is-in">'
+      +'<figure class="dtl__fig" style="margin-top:0"><img src="'+esc(img)+'" alt="'+esc(p.t)+' 관련 이미지"><figcaption>'+esc(p.t)+(p.cl?' — '+esc(p.cl):'')+'</figcaption></figure>'
+      +'<h2>Project Overview</h2><p>'+projTxt(p.ov)+'</p>'
+      +'<h2>Description</h2><p>'+projTxt(p.desc)+'</p>'
+      +'</div><aside class="dtl__side reveal is-in"><dl>'
+      +'<div><dt>Type</dt><dd>'+projTxt(p.k)+'</dd></div>'
+      +'<div><dt>Status</dt><dd>'+projTxt(p.s)+'</dd></div>'
+      +'<div><dt>Name</dt><dd>'+esc(p.t)+'</dd></div>'
+      +'<div><dt>Period</dt><dd>'+projTxt(p.p)+'</dd></div>'
+      +'<div><dt>Client</dt><dd>'+projTxt(p.cl)+'</dd></div>'
+      +'</dl></aside>';
   }
   function renderBLDetail(k){
     var b=null; BL.forEach(function(x){ if(x.k===k) b=x; });
@@ -234,7 +255,8 @@
         +'<h2>Main Functions</h2>'+list(t.funcs)
         +'<h2>Key Capabilities</h2>'+list(t.caps)+'</div>';
     var rows = t.prj.map(function(p,i){
-      return '<a class="rp'+(i>=RP_LIMIT?' is-hidden':'')+'" href="#/company/team/'+t.k+'/'+i+'" data-nav><b>'+esc(p.t)+'</b><span>'+p.y+'</span></a>';
+      var pi = projIdx(p.t), href = pi>=0 ? '#/business/projects/'+pi : '#/company/team/'+t.k+'/'+i;
+      return '<a class="rp'+(i>=RP_LIMIT?' is-hidden':'')+'" href="'+href+'" data-nav><b>'+esc(p.t)+'</b><span>'+p.y+'</span></a>';
     }).join('');
     var rp = t.prj.length
       ? '<h2 class="h-md">Related Projects <span class="rp-cnt">'+t.prj.length+'</span></h2>'
@@ -251,31 +273,14 @@
     });
     document.title = name+' | 미래아이엔텍 MRINT';
   }
-  var PH = '설명이 들어갈 내용입니다.';
+  // PROJECTS 에 없는 팀 전용 프로젝트만 이 경로를 사용 (PROJECTS 에 있으면 #/business/projects/:index 로 연결)
   function renderTeamProj(k, i){
     var t=null; TEAMS.forEach(function(x){ if(x.k===k) t=x; });
     var p = t && t.prj[i];
     if(!p){ location.hash = t ? '#/company/team/'+t.k : '#/company/team'; return; }
-    var src=null; PROJECTS.forEach(function(x){ if(x.t===p.t) src=x; });
-    function v(f){ return p[f] || (src && src[f]) || ''; }
-    function txt(f){ return v(f) ? esc(v(f)) : '<span style="color:var(--ink-40)">'+PH+'</span>'; }
-    var type = v('k');
-    var img = p.img || (type==='SI'?'https://sspark.genspark.ai/i/3PI5h8miWB31PKm5?width=2560':(type==='ITO'?'https://sspark.genspark.ai/i/LQUexAFNNy5Sb1S4?width=2560':'https://sspark.genspark.ai/i/hh772FOUwVOPvuJM?width=2560'));
     $('#tpCrumb').innerHTML='<a href="#/" data-nav>Home</a><i>/</i><a href="#/company/team" data-nav>Team</a><i>/</i><span>'+esc(t.ttl)+'</span><i>/</i><span>Related Projects</span>';
-    $('#tpHead').innerHTML='<h1 class="h-lg" style="font-size:clamp(26px,3.4vw,44px);max-width:30ch">'+esc(p.t)+'</h1>'
-      +'<div class="phero__meta">'+(type?'<span class="chip chip--blue">'+esc(type)+'</span>':'')
-      +(v('s')?'<span class="chip">'+esc(v('s'))+'</span>':'')+'<span class="chip">'+p.y+'</span><span class="chip">'+esc(t.ttl)+'</span></div>';
-    $('#tpBody').innerHTML='<div class="dtl__body reveal is-in">'
-      +'<figure class="dtl__fig" style="margin-top:0"><img src="'+esc(img)+'" alt="'+esc(p.t)+' 관련 이미지"><figcaption>'+esc(p.t)+(v('cl')?' — '+esc(v('cl')):'')+'</figcaption></figure>'
-      +'<h2>Project Overview</h2><p>'+txt('ov')+'</p>'
-      +'<h2>Description</h2><p>'+txt('desc')+'</p>'
-      +'</div><aside class="dtl__side reveal is-in"><dl>'
-      +'<div><dt>Type</dt><dd>'+txt('k')+'</dd></div>'
-      +'<div><dt>Status</dt><dd>'+txt('s')+'</dd></div>'
-      +'<div><dt>Name</dt><dd>'+esc(p.t)+'</dd></div>'
-      +'<div><dt>Period</dt><dd>'+txt('p')+'</dd></div>'
-      +'<div><dt>Client</dt><dd>'+txt('cl')+'</dd></div>'
-      +'</dl></aside>';
+    $('#tpHead').innerHTML = projHead(p);
+    $('#tpBody').innerHTML = projBody(p);
     return p.t+' | 미래아이엔텍 MRINT';
   }
 
@@ -296,7 +301,7 @@
     else if(parts[0]==='company' && parts[1]==='team'){ base='page-team'; title='Team | 미래아이엔텍 MRINT'; }
     else if(parts[0]==='company' && parts[1]==='news' && parts[2]){ base='page-newsDetail'; renderNewsDetail(parts[2]); }
     else if(parts[0]==='company' && parts[1]==='news'){ base='page-news'; title='News&Notices | 미래아이엔텍 MRINT'; renderNews(); }
-    else if(parts[0]==='business' && parts[1]==='projects' && parts[2]!==undefined && parts[2]!==''){ base='page-projDetail'; renderProjDetail(parseInt(parts[2],10)); }
+    else if(parts[0]==='business' && parts[1]==='projects' && parts[2]!==undefined && parts[2]!==''){ base='page-projDetail'; title=renderProjDetail(parseInt(parts[2],10)) || title; }
     else if(parts[0]==='business' && parts[1]==='projects'){ base='page-projects'; title='Projects | 미래아이엔텍 MRINT'; renderProjects(); }
     else if(parts[0]==='business' && parts[1]==='business-line' && parts[2]){ base='page-blDetail'; renderBLDetail(parts[2]); }
     else if(parts[0]==='business' && parts[1]==='business-line'){ base='page-businessLine'; title='Business Line | 미래아이엔텍 MRINT'; renderBL(); }

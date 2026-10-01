@@ -637,7 +637,7 @@
       </div>
       <section class="sec">
         <div class="wrap">
-          <div class="dtl" id="ndBody"></div>
+          <div id="ndBody"></div>
           <div class="pager">
             <a class="lnk" href="#/company/news" data-nav><svg width="14" height="14" viewBox="0 0 16 16" fill="none"
                 stroke="currentColor" stroke-width="1.6">
@@ -658,7 +658,7 @@
           <nav class="crumb"><a href="#/" data-nav>Home</a><i>/</i><span>Business</span><i>/</i><span>Projects</span>
           </nav>
           <h1 class="h-xl">Projects</h1>
-          <p class="lead">금융권을 중심으로 수행한 미래아이엔텍의 프로젝트입니다. 구분(SI/ITO/Solution)과 업권별로 필터링하여 확인할 수 있습니다.</p>
+          <p class="lead">금융권을 중심으로 수행한 미래아이엔텍의 프로젝트입니다. Type · Industry · Status별로 필터링하여 확인할 수 있습니다.</p>
           <div class="phero__meta">
             <span class="chip chip--blue" id="projCount">—</span>
             <span class="chip">SI · ITO · Solution</span>
@@ -667,11 +667,10 @@
       </div>
       <section class="sec">
         <div class="wrap">
-          <div class="filters" id="projFilters"></div>
+          <div class="pfilters" id="projFilters"></div>
           <div class="pgrid" id="projGrid"></div>
           <div class="empty" id="projEmpty" style="display:none">해당 조건의 프로젝트가 없습니다.</div>
-          <p class="note"><b>※ 데이터 기준</b> — 위 목록은 미래아이엔텍 공식 홈페이지에 공개된 프로젝트 정보를 그대로 옮긴 것입니다. 임의로 추가하거나 각색한 프로젝트는 포함하지
-            않았습니다.</p>
+          <nav class="pnum" id="projPager" aria-label="프로젝트 페이지"></nav>
         </div>
       </section>
     </section>
@@ -689,12 +688,6 @@
       <section class="sec">
         <div class="wrap">
           <div class="dtl" id="pdBody"></div>
-          <div class="pager">
-            <a class="lnk" href="#/business/projects" data-nav><svg width="14" height="14" viewBox="0 0 16 16"
-                fill="none" stroke="currentColor" stroke-width="1.6">
-                <path d="M13 3L3 13M3 13h8M3 13V5" />
-              </svg> 프로젝트 목록으로</a>
-          </div>
         </div>
       </section>
     </section>
