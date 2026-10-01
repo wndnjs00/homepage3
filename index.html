@@ -1,0 +1,774 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<script>document.documentElement.className='js';</script>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>미래아이엔텍 MRINT | 금융 IT Total Service Provider</title>
+<meta name="description" content="미래아이엔텍은 2003년 설립 이래 금융권 IT에 특화된 전문기업으로, ITO·SI·인프라·솔루션 등 IT 전 분야에 걸쳐 차별화된 서비스를 제공합니다.">
+<link rel="preconnect" href="https://cdn.jsdelivr.net">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css">
+<link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+<!-- ===================== HEADER ===================== -->
+<header class="hd" id="hd">
+  <div class="wrap hd__in">
+    <a class="brand" href="#/" data-nav>
+      <img class="brand__logo" src="images/logo.png" alt="미래아이엔텍 MRINT 로고">
+      <span class="brand__txt"><b>미래아이엔텍</b><i>Mirae I&amp;Tec</i></span>
+    </a>
+    <nav class="nav" aria-label="주 메뉴">
+      <div class="nav__item">
+        <a class="nav__link" href="#/company/mirae" data-nav>COMPANY
+          <svg class="nav__caret" viewBox="0 0 10 10" fill="none" stroke="currentColor" stroke-width="1.4"><path d="M1 3l4 4 4-4"/></svg>
+        </a>
+        <div class="mega">
+          <a href="#/company/mirae" data-nav><em>01</em><span><b>Mirae I&amp;Tec</b><i>기업 소개 · 비전 · 오시는 길</i></span></a>
+          <a href="#/company/team" data-nav><em>02</em><span><b>Team</b><i>대표이사 및 5개 전문 조직</i></span></a>
+          <a href="#/company/news" data-nav><em>03</em><span><b>News&amp;Notices</b><i>뉴스 · 공지사항</i></span></a>
+        </div>
+      </div>
+      <div class="nav__item">
+        <a class="nav__link" href="#/business/business-line" data-nav>BUSINESS
+          <svg class="nav__caret" viewBox="0 0 10 10" fill="none" stroke="currentColor" stroke-width="1.4"><path d="M1 3l4 4 4-4"/></svg>
+        </a>
+        <div class="mega">
+          <a href="#/business/projects" data-nav><em>01</em><span><b>Projects</b><i>수행 프로젝트 전체 목록</i></span></a>
+          <a href="#/business/business-line" data-nav><em>02</em><span><b>Business Line</b><i>ITO · SI · 인프라 · 솔루션</i></span></a>
+        </div>
+      </div>
+    </nav>
+    <div class="hd__act">
+      <button class="btn btn--ghost btn--sm hd__cta" type="button" data-open-search>
+        <span>SEARCH</span>
+        <svg class="btn__ico" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6"><circle cx="7" cy="7" r="4.6"/><path d="M10.6 10.6L14 14"/></svg>
+      </button>
+      <a class="btn btn--blue btn--sm hd__cta" href="#/contact" data-nav><span>문의하기</span>
+        <svg class="btn__ico" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M3 13L13 3M13 3H5M13 3v8"/></svg>
+      </a>
+      <button class="burger" type="button" aria-label="메뉴 열기" id="burger"><i></i></button>
+    </div>
+  </div>
+</header>
+
+<!-- ===================== MOBILE NAV ===================== -->
+<div class="mnav" id="mnav">
+  <div class="mnav__grp">
+    <span>COMPANY</span>
+    <a href="#/company/mirae" data-nav>Mirae I&amp;Tec<small>기업 소개 · 비전 · 오시는 길</small></a>
+    <a href="#/company/team" data-nav>Team<small>대표이사 및 5개 전문 조직</small></a>
+    <a href="#/company/news" data-nav>News&amp;Notices<small>뉴스 · 공지사항</small></a>
+  </div>
+  <div class="mnav__grp">
+    <span>BUSINESS</span>
+    <a href="#/business/projects" data-nav>Projects<small>수행 프로젝트 전체 목록</small></a>
+    <a href="#/business/business-line" data-nav>Business Line<small>ITO · SI · 인프라 · 솔루션</small></a>
+  </div>
+  <div class="mnav__grp">
+    <span>CONTACT</span>
+    <a href="#/contact" data-nav>문의 및 상담</a>
+  </div>
+  <div class="mnav__foot">
+    서울시 중구 수표로 23, 1001호, 1101호<br>
+    T. 02-557-5267 &nbsp;·&nbsp; F. 02-557-5268<br>
+    E. mrint01@mrint.co.kr
+  </div>
+</div>
+
+<!-- ===================== SEARCH OVERLAY ===================== -->
+<div class="ovl" id="srch" style="z-index:130;padding-top:clamp(84px,10vw,120px)">
+  <div class="wrap">
+    <span class="eyebrow" style="color:var(--cyan)">SEARCH</span>
+    <h2 class="h-lg" style="color:#fff;margin:18px 0 26px">무엇을 찾으시나요?</h2>
+    <input id="srchIn" type="search" placeholder="프로젝트, 뉴스, 사업분야 검색" autocomplete="off"
+      style="width:100%;background:transparent;border:0;border-bottom:2px solid rgba(255,255,255,.25);color:#fff;font:inherit;font-size:clamp(20px,3vw,32px);font-weight:700;letter-spacing:-0.035em;padding:16px 0;outline:none">
+    <ul id="srchOut" style="margin-top:26px;border-top:1px solid var(--hair-l);max-height:46vh;overflow:auto"></ul>
+    <button class="btn btn--ghost btn--sm" style="margin-top:28px" type="button" data-close-search><span>닫기</span></button>
+  </div>
+</div>
+
+<!-- ===================== HOME ===================== -->
+<main>
+<section class="page is-on" id="page-home">
+
+  <!-- HERO -->
+  <div class="hero">
+    <div class="hero__bg">
+      <img src="images/hero.jpg" alt="야경의 고층 빌딩을 올려다본 로우앵글 이미지">
+    </div>
+    <div class="hero__grid"></div>
+    <div class="hero__scroll"><span>SCROLL</span><i></i></div>
+    <div class="hero__in wrap">
+      <div class="hero__top">
+        <div>
+          <span class="hero__tag">IT Total Service Provider · Est. 2003</span>
+          <h1>금융 IT의 <em>신뢰</em>를<br>기술로 <span class="out">완성</span>합니다</h1>
+          <p class="hero__desc">고객 경쟁력 강화를 위해 끊임없이 노력하는 IT Total Service Provider. (주)미래아이엔텍은 2003년 설립 이래 금융·공공 분야의 IT 환경 전반을 구축하고 운영해 온 금융 IT 전문기업입니다.</p>
+          <div class="hero__btns">
+            <a class="btn btn--blue" href="#/business/business-line" data-nav><span>사업영역 보기</span>
+              <svg class="btn__ico" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M3 13L13 3M13 3H5M13 3v8"/></svg></a>
+            <a class="btn btn--ghost" href="#/business/projects" data-nav><span>수행 프로젝트</span>
+              <svg class="btn__ico" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M3 13L13 3M13 3H5M13 3v8"/></svg></a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- CLIENTS -->
+  <div class="clients">
+    <div class="clients__lbl"><span>Main Clients</span><span style="color:rgba(47,128,237,.9)">금융권 중심의 검증된 고객사</span></div>
+    <div class="marquee">
+      <span>흥국생명</span><span>IBK기업은행</span><span>현대차증권</span><span>SC제일은행</span><span>SBI저축은행</span><span>애큐온캐피탈</span><span>한국투자저축은행</span><span>흥국화재</span><span>KDB캐피탈</span><span>현대카드</span><span>라이나손해보험</span><span>BNK캐피탈</span><span>한국투자캐피탈</span><span>태광그룹</span><span>산림조합중앙회</span><span>경동나비엔</span>
+      <span>흥국생명</span><span>IBK기업은행</span><span>현대차증권</span><span>SC제일은행</span><span>SBI저축은행</span><span>애큐온캐피탈</span><span>한국투자저축은행</span><span>흥국화재</span><span>KDB캐피탈</span><span>현대카드</span><span>라이나손해보험</span><span>BNK캐피탈</span><span>한국투자캐피탈</span><span>태광그룹</span><span>산림조합중앙회</span><span>경동나비엔</span>
+    </div>
+  </div>
+
+  <!-- 02 COMPANY -->
+  <section class="sec">
+    <div class="grid-lines"></div>
+    <div class="wrap">
+      <div class="sec-head reveal">
+        <div class="sec-head__rail"><span class="idx">02</span><span class="mono" style="color:var(--ink-40)">Company</span></div>
+        <div>
+          <h2 class="h-lg sec-head__title">금융의 안정성과<br>디지털 혁신을 함께 설계합니다</h2>
+        </div>
+      </div>
+      <div class="intro">
+        <div class="intro__aside reveal">
+          <p class="lead">(주)미래아이엔텍은 최고의 기술력과 비즈니스에 대한 깊이 있는 이해를 바탕으로 고객의 Digital transformation을 실현합니다. IT 인프라부터 사용자 지원을 위한 Help Desk까지 IT 환경 전반을 구축하고 관리하여 고객의 생산성과 효율성을 극대화하기 위한 솔루션을 제공합니다.</p>
+          <p class="lead" style="margin-top:16px">2003년부터 다양한 고객과 디지털 전환 작업을 함께하며 쌓은 노하우와 신뢰를 바탕으로 컨설팅, ITO, 하드웨어, 네트워크 및 보안 등 고객이 필요로 하는 모든 IT 서비스를 제공하고 있습니다.</p>
+          <figure class="intro__fig">
+            <img src="https://sspark.genspark.ai/i/3zd4HJDZ93FeDsOf?width=2560" alt="현대적인 오피스 빌딩의 유리 외벽 반사 이미지">
+          </figure>
+          <a class="lnk" href="#/company/mirae" data-nav style="margin-top:26px">회사 소개 자세히 보기
+            <svg width="14" height="14" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M3 13L13 3M13 3H5M13 3v8"/></svg></a>
+        </div>
+        <div class="value reveal" data-d="1">
+          <div class="value__row">
+            <em>01</em>
+            <div><h3 class="h-sm">금융 도메인에 대한 깊이 있는 이해</h3>
+            <p>은행·보험·저축은행·캐피탈 등 금융 전 업권의 시스템 구축과 운영 경험을 바탕으로, 복잡한 금융 업무 요구사항을 정확하게 해석하고 안정적으로 구현합니다.</p></div>
+          </div>
+          <div class="value__row">
+            <em>02</em>
+            <div><h3 class="h-sm">검증된 프로젝트 수행 경험</h3>
+            <p>2003년 설립 이후 20년 이상의 업무 수행 경험을 보유하고 있으며, 흥국생명·IBK기업은행·현대차증권·SC제일은행·SBI저축은행·애큐온캐피탈 등 금융권 고객과 다양한 사업을 수행해 왔습니다.</p></div>
+          </div>
+          <div class="value__row">
+            <em>03</em>
+            <div><h3 class="h-sm">서비스 연속성과 품질을 보장하는 조직</h3>
+            <p>기존 운영 우수 인력을 중심으로 조직을 구성해 서비스 연속성과 품질을 보장하고, 인력 관리 프로그램(MIRAE_IN)과 협력업체 관리 시스템을 통해 적기 적소에 전문 인력을 지원합니다.</p></div>
+          </div>
+          <div class="value__row" style="border-bottom:0;padding-bottom:0">
+            <em>&nbsp;</em>
+            <div style="display:flex;flex-wrap:wrap;gap:12px">
+              <a class="btn btn--line btn--sm" href="#/company/team" data-nav><span>조직 소개</span>
+                <svg class="btn__ico" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M3 13L13 3M13 3H5M13 3v8"/></svg></a>
+              <a class="btn btn--blue btn--sm" href="#/contact" data-nav><span>상담 문의</span>
+                <svg class="btn__ico" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M3 13L13 3M13 3H5M13 3v8"/></svg></a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- DARK BAND -->
+  <section class="band">
+    <img src="https://sspark.genspark.ai/i/7VCzsJghcWMQxlhi?width=2560" alt="도심의 유리 외벽 고층 빌딩을 올려다본 이미지">
+    <div class="band__in">
+      <div class="reveal">
+        <span class="eyebrow">Financial IT Partner</span>
+        <h2 class="h-lg" style="margin-top:18px">금융권의 복잡한 요구사항을<br>이해하는 전문 파트너</h2>
+        <p class="lead" style="margin-top:18px">체계적인 방법론, 정형화된 프로세스, 최신 기술로 고품격 IT 서비스를 제공합니다. 서비스 수준 관리 체계를 정착시키기 위한 단계적인 SLA 적용 방안을 수립하여 체계적이고 효율적인 서비스를 제공합니다.</p>
+      </div>
+      <div class="band__facts reveal" data-d="1">
+        <div><b>2003</b><span>설립 (금융 IT 전문)</span></div>
+        <div><b>20<span style="font-size:.55em">년+</span></b><span>금융 IT 수행 경험</span></div>
+        <div><b>4</b><span>핵심 사업 영역</span></div>
+        <div><b>SLA</b><span>서비스 수준 관리 체계</span></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 03 BUSINESS LINE -->
+  <section class="sec sec--gray" style="padding-top:0">
+    <div class="wrap" style="padding-top:clamp(72px,10vw,150px)">
+      <div class="sec-head reveal">
+        <div class="sec-head__rail"><span class="idx">03</span><span class="mono" style="color:var(--ink-40)">Business</span></div>
+        <div>
+          <h2 class="h-lg sec-head__title">네 개의 축으로<br>금융 IT 전 영역을 담당합니다</h2>
+          <div class="sec-head__body">
+            <p class="lead">IT Outsourcing · System Integration · Infrastructure · Solution. 서로 다른 네 개의 사업 영역을 하나의 운영 체계로 연결해, 기획부터 구축·운영까지 끊김 없이 이어지는 서비스를 제공합니다.</p>
+            <a class="btn btn--line" href="#/business/business-line" data-nav><span>Business Line 전체보기</span>
+              <svg class="btn__ico" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M3 13L13 3M13 3H5M13 3v8"/></svg></a>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="mods" style="border-top:1px solid var(--hair)">
+      <a class="mod mod--wide" href="#/business/business-line/ito" data-nav style="border-right:1px solid var(--hair)">
+        <div class="mod__img"><img src="https://sspark.genspark.ai/i/fH7KyLyOjilFM6U8?width=2560" alt="현대적인 오피스에서 업무를 수행하는 모습"></div>
+        <div class="mod__in">
+          <div class="mod__top"><span class="mono" style="color:var(--cyan)">01 / ITO</span></div>
+          <h3>IT OUTSOURCING</h3>
+          <p>안정적이고 효율적인 IT 운영 서비스를 제공합니다. 고객사의 사업 목적과 상황에 맞춘 운영 서비스로 IT 업무 프로세스의 선진화·고도화와 최적화된 유지보수 비용 확보를 지원합니다.</p>
+          <span class="mod__foot">자세히 보기 <svg width="14" height="14" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M3 13L13 3M13 3H5M13 3v8"/></svg></span>
+        </div>
+      </a>
+      <a class="mod mod--half" href="#/business/business-line/si" data-nav>
+        <div class="mod__img"><img src="https://sspark.genspark.ai/i/DwACFArSqNNVmRDL?width=2560" alt="디지털 네트워크를 표현한 추상 이미지"></div>
+        <div class="mod__in">
+          <div class="mod__top"><span class="mono" style="color:var(--cyan)">02 / SI</span></div>
+          <h3>SYSTEM INTEGRATION</h3>
+          <p>고객에게 최적화된 정보 시스템과 전문적이고 효율적인 IT 솔루션을 제공합니다.</p>
+          <span class="mod__foot">자세히 보기 <svg width="14" height="14" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M3 13L13 3M13 3H5M13 3v8"/></svg></span>
+        </div>
+      </a>
+      <a class="mod mod--half" href="#/business/business-line/infra" data-nav style="border-right:1px solid var(--hair)">
+        <div class="mod__img"><img src="https://sspark.genspark.ai/i/B9Z7d9ONrrV2J2IP?width=2560" alt="데이터센터 서버 랙 이미지"></div>
+        <div class="mod__in">
+          <div class="mod__top"><span class="mono" style="color:var(--cyan)">03 / INFRA</span></div>
+          <h3>INFRASTRUCTURE</h3>
+          <p>고객이 필요로 하는 최적의 IT 인프라 서비스를 제공합니다.</p>
+          <span class="mod__foot">자세히 보기 <svg width="14" height="14" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M3 13L13 3M13 3H5M13 3v8"/></svg></span>
+        </div>
+      </a>
+      <a class="mod mod--wide" href="#/business/business-line/solution" data-nav>
+        <div class="mod__img"><img src="https://sspark.genspark.ai/i/sA3yvT5nzUdq1iRw?width=2560" alt="유리와 철골 구조의 현대적인 건물 아트리움 내부"></div>
+        <div class="mod__in">
+          <div class="mod__top"><span class="mono" style="color:var(--cyan)">04 / SOLUTION</span></div>
+          <h3>SOLUTION</h3>
+          <p>고객이 필요로 하는 사업관리 및 운영 전반을 통합한 전문적인 서비스를 제공합니다. PC·Network·Server·ERP·Software 등 다양한 영역의 기술 요구사항에 신속하고 정확하게 대응합니다.</p>
+          <span class="mod__foot">자세히 보기 <svg width="14" height="14" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M3 13L13 3M13 3H5M13 3v8"/></svg></span>
+        </div>
+      </a>
+    </div>
+  </section>
+
+  <!-- 04 TECHNOLOGY -->
+  <section class="sec sec--dark">
+    <div class="grid-lines grid-lines--dark"></div>
+    <div class="wrap">
+      <div class="sec-head reveal">
+        <div class="sec-head__rail"><span class="idx">04</span><span class="mono" style="color:rgba(255,255,255,.45)">Technology</span></div>
+        <div>
+          <h2 class="h-lg sec-head__title">금융 시스템을 지탱하는<br>기술과 운영 역량</h2>
+          <div class="sec-head__body">
+            <p class="lead">실제 보유한 서비스 역량을 영역별로 구분했습니다. 어플리케이션 운영부터 인프라·보안, DB암호화 솔루션까지 금융 시스템에 요구되는 전 영역을 자체 인력과 검증된 파트너십으로 커버합니다.</p>
+          </div>
+        </div>
+      </div>
+      <div class="tech">
+        <div class="cap reveal">
+          <div class="cap__row">
+            <header><h4>어플리케이션 운영</h4><b>APPLICATION</b></header>
+            <p>어플리케이션 유지보수 · 진단/개선 · 성능 향상. 금융산업의 시스템 구축 및 운영 경험을 바탕으로 체계적인 방법론과 정형화된 프로세스를 적용합니다.</p>
+          </div>
+          <div class="cap__row">
+            <header><h4>IT 인프라 구축 및 운영관리</h4><b>INFRASTRUCTURE</b></header>
+            <p>Server · Storage · Network · PC · 보안 장비 등 H/W와 운영체제·애플리케이션·관리 도구 등 S/W 전 영역을 통합한 고객 맞춤형 인프라를 제공합니다.</p>
+          </div>
+          <div class="cap__row">
+            <header><h4>서비스 수준 관리 (SLA / SLM)</h4><b>OPERATION</b></header>
+            <p>아웃소싱 계획부터 수행, 종료에 이르는 전 영역의 검증된 방법론을 수립·적용하고, 서비스 수준 측정·보고·개선 활동으로 IT 서비스 품질을 보장합니다.</p>
+          </div>
+          <div class="cap__row">
+            <header><h4>DB 암호화 솔루션 · ERP</h4><b>SOLUTION</b></header>
+            <p>DBMS에 종속되지 않는 이기종 DBMS 간 암호화, Daemon-less 구조의 고성능 서비스를 제공하며 SAP 표준 수정 없이 안전한 운영 환경을 구성합니다.</p>
+          </div>
+          <div class="cap__row">
+            <header><h4>전문 인력 관리 체계 (MIRAE_IN)</h4><b>RESOURCE</b></header>
+            <p>인력 관리 프로그램과 분야별 소싱 전담팀, 협력업체 관리 시스템을 통해 검증된 전문 인력을 적기 적소에 지원합니다.</p>
+          </div>
+        </div>
+        <div class="reveal" data-d="1">
+          <div class="techvis">
+            <div class="techvis__hd">
+              <span class="mono" style="color:var(--cyan)">Service Architecture</span>
+              <span class="mono" style="color:rgba(255,255,255,.4)">End-to-End Stack</span>
+            </div>
+            <div class="stack">
+              <div class="stack__row"><span class="stack__no">05</span><div><b>고객 채널</b><em>인터넷뱅킹 · 모바일 · 창구 · 대외 채널</em></div></div>
+              <div class="stack__row"><span class="stack__no">04</span><div><b>업무 애플리케이션</b><em>계정계 · 정보계 · 채널계 · 여신/수신 업무</em></div></div>
+              <div class="stack__row"><span class="stack__no">03</span><div><b>미들웨어 · 데이터</b><em>WAS · DB · DB 암호화(CubeOne™)</em></div></div>
+              <div class="stack__row"><span class="stack__no">02</span><div><b>IT 인프라</b><em>서버 · 스토리지 · 네트워크 · 클라우드</em></div></div>
+              <div class="stack__row"><span class="stack__no">01</span><div><b>보안 · 운영관리</b><em>접근제어 · SLA/SLM · 서비스 데스크 · 자산관리</em></div></div>
+            </div>
+            <p class="techvis__note">※ 미래아이엔텍이 실제로 제공하는 서비스 영역을 계층 구조로 정리한 다이어그램입니다.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 05 PERFORMANCE / TRUST -->
+  <section class="sec">
+    <div class="wrap">
+      <div class="sec-head reveal">
+        <div class="sec-head__rail"><span class="idx">05</span><span class="mono" style="color:var(--ink-40)">Trust</span></div>
+        <div>
+          <h2 class="h-lg sec-head__title">숫자로 확인하는<br>수행 역량</h2>
+          <div class="sec-head__body">
+            <p class="lead">공개된 정보만으로 신뢰를 전달합니다. 설립 연도와 업력, 사업 영역, 조직 구성, 그리고 미래아이엔텍이 수행한 금융권 고객사 목록을 정리했습니다.</p>
+          </div>
+        </div>
+      </div>
+      <div class="nums reveal">
+        <div><em>Established</em><b>2003</b><span>2003년 12월 설립 · 금융 IT 전문</span></div>
+        <div><em>Experience</em><b data-count="20">20<small>년+</small></b><span>금융 IT 업무 수행 경험</span></div>
+        <div><em>Business Line</em><b data-count="4">04<small>개</small></b><span>ITO · SI · 인프라 · 솔루션</span></div>
+        <div><em>Expert Teams</em><b data-count="5">05<small>개</small></b><span>전문 조직 및 연구소</span></div>
+      </div>
+      <div class="clgrid reveal" data-d="1">
+        <div>흥국생명</div><div>IBK기업은행</div><div>현대차증권</div><div>SC제일은행</div><div>SBI저축은행</div><div>애큐온캐피탈</div>
+        <div>한국투자저축은행</div><div>흥국화재</div><div>KDB캐피탈</div><div>현대카드</div><div>라이나손해보험</div><div>한국투자캐피탈</div>
+      </div>
+      <p class="mono" style="color:var(--ink-40);margin-top:14px">※ 고객사 명칭은 미래아이엔텍이 수행한 사업 및 자사 공개 자료에 기재된 기준입니다.</p>
+    </div>
+  </section>
+
+  <!-- 06 NEWS -->
+  <section class="sec sec--gray">
+    <div class="wrap">
+      <div class="sec-head reveal">
+        <div class="sec-head__rail"><span class="idx">06</span><span class="mono" style="color:var(--ink-40)">News</span></div>
+        <div>
+          <h2 class="h-lg sec-head__title">News &amp; Notices</h2>
+          <div class="sec-head__body">
+            <p class="lead">미래아이엔텍의 주요 사업 수주 소식과 공지사항을 전합니다.</p>
+            <a class="btn btn--line" href="#/company/news" data-nav><span>전체보기</span>
+              <svg class="btn__ico" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M3 13L13 3M13 3H5M13 3v8"/></svg></a>
+          </div>
+        </div>
+      </div>
+      <div class="list" id="homeNews"></div>
+    </div>
+  </section>
+
+  <!-- CTA -->
+  <section class="cta">
+    <img src="https://sspark.genspark.ai/i/Ex7oZDjOL4Umrq3s?width=2560" alt="직선과 기하학적 형태가 강조된 고층 건축물 외벽">
+    <div class="wrap cta__in">
+      <div class="reveal">
+        <span class="eyebrow">Contact</span>
+        <h2 class="h-lg" style="margin-top:18px">금융 IT 프로젝트,<br>안정적인 파트너와 함께 시작하세요</h2>
+        <p class="lead" style="margin-top:16px">시스템 구축과 운영·유지보수, 인프라, 솔루션까지. 요구사항을 남겨주시면 담당자가 검토 후 연락드립니다.</p>
+      </div>
+      <div class="reveal" data-d="1" style="display:flex;flex-wrap:wrap;gap:12px">
+        <a class="btn btn--blue" href="#/contact" data-nav><span>문의하기</span>
+          <svg class="btn__ico" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M3 13L13 3M13 3H5M13 3v8"/></svg></a>
+        <a class="btn btn--ghost" href="tel:025575267"><span>02-557-5267</span>
+          <svg class="btn__ico" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M3 13L13 3M13 3H5M13 3v8"/></svg></a>
+      </div>
+    </div>
+  </section>
+</section><!-- /page-home -->
+
+<!-- ===================== PAGE : MIRAE I&TEC ===================== -->
+<section class="page" id="page-mirae">
+  <div class="phero">
+    <img src="https://sspark.genspark.ai/i/t1pErGiIU5ONH3iH?width=2560" alt="유리 외벽이 반사되는 현대적인 빌딩 외관">
+    <div class="grid-lines grid-lines--dark"></div>
+    <div class="wrap phero__in">
+      <nav class="crumb"><a href="#/" data-nav>Home</a><i>/</i><span>Company</span><i>/</i><span>Mirae I&amp;Tec</span></nav>
+      <h1 class="h-xl">Mirae I&amp;Tec</h1>
+      <p class="lead">최고의 기술력과 비즈니스에 대한 깊이 있는 이해를 바탕으로 고객의 Digital transformation을 실현합니다.</p>
+      <div class="phero__meta">
+        <span class="chip chip--blue">Est. 2003</span>
+        <span class="chip">금융 IT 전문</span>
+        <span class="chip">서울 중구 수표로 23</span>
+      </div>
+    </div>
+  </div>
+
+  <section class="sec">
+    <div class="wrap">
+      <div class="sec-head reveal">
+        <div class="sec-head__rail"><span class="idx">01</span><span class="mono" style="color:var(--ink-40)">Introduction</span></div>
+        <div><h2 class="h-lg sec-head__title">기업 소개</h2></div>
+      </div>
+      <div class="dtl">
+        <div class="dtl__body reveal">
+          <h2>(주)미래아이엔텍은</h2>
+          <p>최고의 기술력과 비즈니스에 대한 깊이 있는 이해를 바탕으로 고객의 Digital transformation을 실현합니다. IT 인프라부터 사용자 지원을 위한 Help Desk까지 IT 환경 전반을 구축하고 관리하여, 고객의 생산성 및 효율성을 극대화하기 위한 솔루션을 제공합니다.</p>
+          <p>우리는 2003년부터 다양한 고객들과 디지털 전환 작업을 함께하며 쌓인 노하우와 신뢰를 바탕으로 컨설팅, ITO, 하드웨어, 네트워크 및 보안 등 고객이 필요로 하는 모든 IT 서비스를 제공하고 있습니다.</p>
+          <figure class="dtl__fig">
+            <img src="https://sspark.genspark.ai/i/Rfg17mOGP0IcHwSC?width=2560" alt="유리와 철골로 구성된 현대 건축물의 내부 구조">
+            <figcaption>IT 환경 전반을 구축·운영하는 금융 IT Total Service Provider</figcaption>
+          </figure>
+          <h2>핵심 가치와 비전</h2>
+          <ul>
+            <li><b>고객 중심</b> — 고객의 사업 목적과 상황에 맞춘 최적화된 운영·구축 서비스를 제공합니다.</li>
+            <li><b>전문성</b> — 금융 분야에 대한 깊이 있는 이해도와 분야별 전문 인력을 보유하고 있습니다.</li>
+            <li><b>신뢰</b> — 20년 이상의 업무 수행 경험과 검증된 방법론으로 안정적인 서비스를 보장합니다.</li>
+            <li><b>지속성</b> — 기존 운영 우수 인력을 중심으로 조직을 구성해 서비스 연속성과 품질을 유지합니다.</li>
+          </ul>
+          <p style="margin-top:26px"><a class="btn btn--line" href="#/company/team" data-nav><span>조직 및 팀 소개 보기</span>
+            <svg class="btn__ico" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M3 13L13 3M13 3H5M13 3v8"/></svg></a></p>
+        </div>
+        <aside class="dtl__side reveal" data-d="1">
+          <dl>
+            <div><dt>Company</dt><dd>주식회사 미래아이엔텍 (MRINT)</dd></div>
+            <div><dt>Established</dt><dd>2003. 12</dd></div>
+            <div><dt>Business</dt><dd>IT Outsourcing · System Integration · Infrastructure · Solution</dd></div>
+            <div><dt>Industry</dt><dd>금융권 및 공공기관 IT 시스템 구축 · 운영</dd></div>
+            <div><dt>Representative</dt><dd>김학연 (대표이사)</dd></div>
+            <div><dt>Address</dt><dd>서울시 중구 수표로 23, 1001호, 1101호</dd></div>
+            <div><dt>Contact</dt><dd>T. 02-557-5267<br>F. 02-557-5268<br>E. mrint01@mrint.co.kr</dd></div>
+          </dl>
+          <dl style="border-top:1px solid var(--hair)">
+            <a class="btn btn--blue btn--sm" href="#/contact" data-nav><span>상담 문의하기</span>
+              <svg class="btn__ico" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M3 13L13 3M13 3H5M13 3v8"/></svg></a>
+          </dl>
+        </aside>
+      </div>
+    </div>
+  </section>
+
+  <section class="sec sec--gray" id="location">
+    <div class="wrap">
+      <div class="sec-head reveal">
+        <div class="sec-head__rail"><span class="idx">02</span><span class="mono" style="color:var(--ink-40)">Location</span></div>
+        <div>
+          <h2 class="h-lg sec-head__title">오시는 길</h2>
+          <div class="sec-head__body">
+            <p class="lead">서울 중구 수표로 23, 인농빌딩 1001호 · 1101호에 위치하고 있습니다.</p>
+            <a class="btn btn--line" href="https://maps.google.com/maps?ll=37.563197,126.990088&amp;z=16&amp;t=m&amp;hl=ko-KR" target="_blank" rel="noopener"><span>지도 크게 보기</span>
+              <svg class="btn__ico" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M3 13L13 3M13 3H5M13 3v8"/></svg></a>
+          </div>
+        </div>
+      </div>
+      <div class="map reveal">
+        <div class="map__fb"><b>37.5632° N, 126.9901° E</b><span>지도가 표시되지 않는 환경에서는 ‘지도 크게 보기’를 이용해 주세요.</span></div>
+        <iframe title="미래아이엔텍 위치 지도" loading="lazy" referrerpolicy="no-referrer-when-downgrade"
+          src="https://maps.google.com/maps?q=37.563197,126.990088&amp;z=16&amp;hl=ko&amp;output=embed"></iframe>
+      </div>
+      <div class="map__card reveal" data-d="1">
+        <div><b>도로명 주소</b><span>서울시 중구 수표로 23, 1001호, 1101호</span><small>인농빌딩 (저동2가)</small></div>
+        <div><b>Address (EN)</b><span>23 Supyo-ro, Jung-gu, Seoul</span><small>Republic of Korea</small></div>
+        <div><b>Contact</b><span>T. 02-557-5267</span><small>F. 02-557-5268 · E. mrint01@mrint.co.kr</small></div>
+      </div>
+      <div class="wayfind reveal" data-d="2">
+        <div><b><i>1</i>지하철 이용 시</b><p>2·3호선 을지로3가역, 2·4호선 동대문역사문화공원역 인근입니다. 정확한 출구 정보는 방문 전 연락처로 확인하실 수 있습니다.</p></div>
+        <div><b><i>2</i>주차 안내</b><p>건물 내 주차 공간은 한정적입니다. 방문 일정 확정 시 담당자에게 미리 알려주시면 안내해 드립니다.</p></div>
+        <div><b><i>3</i>방문 상담</b><p>방문 상담은 사전 예약제로 운영됩니다. T. 02-557-5267 또는 E. mrint01@mrint.co.kr 로 문의해 주세요.</p></div>
+      </div>
+      <p class="note reveal" data-d="3"><b>※ 안내</b> — 지하철 출구·주차 등 상세 교통 안내는 확인된 정보가 아니어서 임의로 기재하지 않았습니다. 실제 운영 정보를 입력해 주세요.</p>
+    </div>
+  </section>
+</section>
+
+<!-- ===================== PAGE : TEAM ===================== -->
+<section class="page" id="page-team">
+  <div class="phero">
+    <img src="https://sspark.genspark.ai/i/LbBv9AWSGrAcfDmE?width=2560" alt="현대적인 건물의 아트리움과 구조적 공간">
+    <div class="grid-lines grid-lines--dark"></div>
+    <div class="wrap phero__in">
+      <nav class="crumb"><a href="#/" data-nav>Home</a><i>/</i><span>Company</span><i>/</i><span>Team</span></nav>
+      <h1 class="h-xl">Team</h1>
+      <p class="lead">대표이사를 중심으로 ITO·SI·인프라·솔루션, 그리고 미래기술연구소까지. 다섯 개 전문 조직이 금융 IT의 전 영역을 담당합니다.</p>
+      <div class="phero__meta">
+        <span class="chip chip--blue">5 Expert Teams</span>
+        <span class="chip">CEO 김학연</span>
+      </div>
+    </div>
+  </div>
+
+  <section class="sec">
+    <div class="wrap">
+      <div class="sec-head reveal">
+        <div class="sec-head__rail"><span class="idx">01</span><span class="mono" style="color:var(--ink-40)">CEO</span></div>
+        <div><h2 class="h-lg sec-head__title">대표이사</h2></div>
+      </div>
+      <div class="ceo">
+        <figure class="ceo__ph reveal" style="margin:0">
+          <img src="images/ceo.jpg" alt="미래아이엔텍 김학연 대표이사 사진">
+          <figcaption>김학연 · 대표이사 (CEO)</figcaption>
+        </figure>
+        <div class="reveal" data-d="1">
+          <span class="eyebrow">CEO Message</span>
+          <h3 class="h-md" style="margin-top:16px">김학연 <span style="font-family:var(--mono);font-size:.5em;color:var(--ink-40);letter-spacing:.12em;font-weight:500">KIM HAKYUN</span></h3>
+          <p class="lead" style="margin-top:12px">대표이사 | CEO · 미래아이엔텍</p>
+          <p class="lead" style="margin-top:20px">미래아이엔텍은 2003년 설립 이래 금융권 IT에 특화된 전문기업으로, SI·ITO·컨설팅 등 IT 전 분야에 걸쳐 차별화된 서비스를 제공해 왔습니다. 축적된 경험과 기술 노하우를 바탕으로 고객의 디지털 전환을 안정적으로 지원합니다.</p>
+          <blockquote>“금융 IT 혁신을 이끄는 제2의 도약”</blockquote>
+          <div class="nums" style="margin-top:32px;border:1px solid var(--hair)">
+            <div style="grid-column:span 2"><em>Appointed</em><b style="font-size:clamp(20px,2.4vw,28px)">2026. 03</b><span>신임 대표이사 선임 (자사 공지 기준)</span></div>
+            <div style="grid-column:span 2"><em>Focus</em><b style="font-size:clamp(20px,2.4vw,28px)">금융 IT</b><span>금융권 디지털 전환 · ITSM 사업 강화</span></div>
+          </div>
+          <p class="note"><b>※ 안내</b> — 대표이사 인사말 본문은 실제 게시 문구를 입력하는 영역입니다. 대표이사 사진은 기존 홈페이지에 게재된 사진을 사용했으며, 교체가 필요할 경우 동일 영역에서 변경할 수 있습니다.</p>
+        </div>
+      </div>
+
+      <div class="sec-head reveal" style="margin-top:clamp(56px,7vw,110px)">
+        <div class="sec-head__rail"><span class="idx">02</span><span class="mono" style="color:var(--ink-40)">Organization</span></div>
+        <div><h2 class="h-lg sec-head__title">조직 구성</h2>
+          <div class="sec-head__body"><p class="lead">각 팀은 독립된 전문 영역을 담당하며, 프로젝트 단위로 유기적으로 협업합니다.</p></div>
+        </div>
+      </div>
+      <div class="teams">
+        <article class="team reveal">
+          <div class="team__ico"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="3" y="4" width="18" height="12"/><path d="M8 20h8M12 16v4"/></svg></div>
+          <h3>ITO 팀</h3><em>IT Outsourcing Team</em>
+          <p>고객 시스템의 운영과 유지보수를 전담합니다. 어플리케이션 유지보수, 진단·개선, 성능 향상을 통해 안정적인 전산 시스템 운영을 제공합니다.</p>
+          <ul><li>어플리케이션 유지보수</li><li>진단 / 개선</li><li>성능 향상</li><li>SLA / SLM</li></ul>
+        </article>
+        <article class="team reveal" data-d="1">
+          <div class="team__ico"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M4 6h16v12H4z"/><path d="M8 10h8M8 14h5"/></svg></div>
+          <h3>SI 팀</h3><em>System Integration Team</em>
+          <p>금융을 비롯한 다양한 산업 분야의 정보화 개발과 시스템 통합을 수행합니다. 고객의 비즈니스 프로세스를 개선하고 경쟁력을 강화합니다.</p>
+          <ul><li>정보화 개발</li><li>시스템 통합</li><li>인프라 구축</li><li>업무 프로세스 개선</li></ul>
+        </article>
+        <article class="team reveal" data-d="2">
+          <div class="team__ico"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="3" y="3" width="18" height="6"/><rect x="3" y="11" width="18" height="6"/><path d="M7 21h10"/></svg></div>
+          <h3>인프라 팀</h3><em>Infrastructure Maintenance Team</em>
+          <p>IT 인프라 컨설팅·구축·운영·유지보수 전문 조직입니다. 서버·스토리지·네트워크·보안 장비와 클라우드 영역을 담당합니다.</p>
+          <ul><li>IT 인프라 구축</li><li>IT 인프라 운영관리</li><li>Cloud</li><li>보안 장비</li></ul>
+        </article>
+        <article class="team reveal" data-d="3">
+          <div class="team__ico"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M12 3l8 4.5v9L12 21l-8-4.5v-9z"/><path d="M12 12l8-4.5M12 12v9M12 12L4 7.5"/></svg></div>
+          <h3>솔루션 팀</h3><em>Solution Team</em>
+          <p>사업관리 및 운영 전반을 통합한 전문 서비스를 제공합니다. DB암호화 솔루션과 ERP·IT 자산·보안 체계 구축을 담당합니다.</p>
+          <ul><li>DB 암호화 (CubeOne™)</li><li>ERP</li><li>IT 자산관리</li><li>End-User Device</li></ul>
+        </article>
+        <article class="team reveal" data-d="4">
+          <div class="team__ico"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><circle cx="11" cy="11" r="6.5"/><path d="M15.8 15.8L21 21M11 8v6M8 11h6"/></svg></div>
+          <h3>미래기술연구소</h3><em>Future Technology Research Center</em>
+          <p>신기술과 솔루션을 발굴·검증하여 서비스에 적용합니다. 검증된 기술을 고객 환경에 맞게 적용해 서비스 경쟁력을 높입니다.</p>
+          <ul><li>신기술 발굴</li><li>솔루션 검증</li><li>기술 적용</li></ul>
+        </article>
+        <article class="team reveal" data-d="5" style="background:var(--navy);color:#fff">
+          <div class="team__ico" style="border-color:var(--hair-l);color:var(--cyan)"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M12 3v18M3 12h18"/></svg></div>
+          <h3 style="color:#fff">프로젝트 협업 체계</h3><em style="color:rgba(255,255,255,.45)">Collaboration</em>
+          <p style="color:rgba(255,255,255,.68)">각 팀은 프로젝트 단위로 유기적으로 협업합니다. 분야별 소싱 전담팀과 협력업체 관리 시스템을 통해 검증된 인력과 기술을 결합합니다.</p>
+          <ul style="border-color:var(--hair-l)"><li style="background:transparent;border-color:var(--hair-l);color:#fff">ITO</li><li style="background:transparent;border-color:var(--hair-l);color:#fff">SI</li><li style="background:transparent;border-color:var(--hair-l);color:#fff">INFRA</li><li style="background:transparent;border-color:var(--hair-l);color:#fff">SOLUTION</li></ul>
+        </article>
+      </div>
+    </div>
+  </section>
+</section>
+
+<!-- ===================== PAGE : NEWS ===================== -->
+<section class="page" id="page-news">
+  <div class="phero">
+    <img src="https://sspark.genspark.ai/i/kcOdpeXj1Bd4lUDO?width=2560" alt="직선적인 형태의 고층 건물 외벽">
+    <div class="grid-lines grid-lines--dark"></div>
+    <div class="wrap phero__in">
+      <nav class="crumb"><a href="#/" data-nav>Home</a><i>/</i><span>Company</span><i>/</i><span>News&amp;Notices</span></nav>
+      <h1 class="h-xl">News&amp;Notices</h1>
+      <p class="lead">미래아이엔텍의 주요 사업 수주 소식과 공지사항입니다.</p>
+    </div>
+  </div>
+  <section class="sec">
+    <div class="wrap">
+      <div class="filters" id="newsFilters"></div>
+      <div class="list" id="newsList"></div>
+    </div>
+  </section>
+</section>
+
+<!-- ===================== PAGE : NEWS DETAIL ===================== -->
+<section class="page" id="page-newsDetail">
+  <div class="phero">
+    <img src="https://sspark.genspark.ai/i/kcOdpeXj1Bd4lUDO?width=2560" alt="고층 건축물 외벽">
+    <div class="grid-lines grid-lines--dark"></div>
+    <div class="wrap phero__in">
+      <nav class="crumb" id="ndCrumb"></nav>
+      <div id="ndHead"></div>
+    </div>
+  </div>
+  <section class="sec">
+    <div class="wrap">
+      <div class="dtl" id="ndBody"></div>
+      <div class="pager">
+        <a class="lnk" href="#/company/news" data-nav><svg width="14" height="14" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M13 3L3 13M3 13h8M3 13V5"/></svg> 목록으로</a>
+        <span class="mono" style="color:var(--ink-40)" id="ndNav"></span>
+      </div>
+    </div>
+  </section>
+</section>
+
+<!-- ===================== PAGE : PROJECTS ===================== -->
+<section class="page" id="page-projects">
+  <div class="phero">
+    <img src="https://sspark.genspark.ai/i/j4g7HIttVWXuLHch?width=2560" alt="도심의 고층 빌딩을 올려다본 이미지">
+    <div class="grid-lines grid-lines--dark"></div>
+    <div class="wrap phero__in">
+      <nav class="crumb"><a href="#/" data-nav>Home</a><i>/</i><span>Business</span><i>/</i><span>Projects</span></nav>
+      <h1 class="h-xl">Projects</h1>
+      <p class="lead">금융권을 중심으로 수행한 미래아이엔텍의 프로젝트입니다. 구분(SI/ITO/Solution)과 업권별로 필터링하여 확인할 수 있습니다.</p>
+      <div class="phero__meta">
+        <span class="chip chip--blue" id="projCount">—</span>
+        <span class="chip">SI · ITO · Solution</span>
+      </div>
+    </div>
+  </div>
+  <section class="sec">
+    <div class="wrap">
+      <div class="filters" id="projFilters"></div>
+      <div class="pgrid" id="projGrid"></div>
+      <div class="empty" id="projEmpty" style="display:none">해당 조건의 프로젝트가 없습니다.</div>
+      <p class="note"><b>※ 데이터 기준</b> — 위 목록은 미래아이엔텍 공식 홈페이지에 공개된 프로젝트 정보를 그대로 옮긴 것입니다. 임의로 추가하거나 각색한 프로젝트는 포함하지 않았습니다.</p>
+    </div>
+  </section>
+</section>
+
+<!-- ===================== PAGE : PROJECT DETAIL ===================== -->
+<section class="page" id="page-projDetail">
+  <div class="phero">
+    <img src="https://sspark.genspark.ai/i/puLQxZe24di3fkL3?width=2560" alt="유리 커튼월 건축물">
+    <div class="grid-lines grid-lines--dark"></div>
+    <div class="wrap phero__in">
+      <nav class="crumb" id="pdCrumb"></nav>
+      <div id="pdHead"></div>
+    </div>
+  </div>
+  <section class="sec">
+    <div class="wrap">
+      <div class="dtl" id="pdBody"></div>
+      <div class="pager">
+        <a class="lnk" href="#/business/projects" data-nav><svg width="14" height="14" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M13 3L3 13M3 13h8M3 13V5"/></svg> 프로젝트 목록으로</a>
+      </div>
+    </div>
+  </section>
+</section>
+
+<!-- ===================== PAGE : BUSINESS LINE ===================== -->
+<section class="page" id="page-businessLine">
+  <div class="phero">
+    <img src="https://sspark.genspark.ai/i/Mx7L2eqzSbzMj61C?width=2560" alt="현대적인 건축물의 유리와 금속 구조">
+    <div class="grid-lines grid-lines--dark"></div>
+    <div class="wrap phero__in">
+      <nav class="crumb"><a href="#/" data-nav>Home</a><i>/</i><span>Business</span><i>/</i><span>Business Line</span></nav>
+      <h1 class="h-xl">Business Line</h1>
+      <p class="lead">IT Outsourcing · System Integration · Infrastructure · Solution. 네 개의 사업 영역으로 금융 IT의 전 단계를 지원합니다.</p>
+      <div class="phero__meta"><span class="chip chip--blue">4 Business Lines</span></div>
+    </div>
+  </div>
+  <section class="sec sec--gray">
+    <div class="wrap">
+      <div class="bl" id="blGrid"></div>
+    </div>
+  </section>
+</section>
+
+<!-- ===================== PAGE : BUSINESS LINE DETAIL ===================== -->
+<section class="page" id="page-blDetail">
+  <div class="phero">
+    <img src="https://sspark.genspark.ai/i/Mx7L2eqzSbzMj61C?width=2560" alt="현대 건축물의 유리 외벽">
+    <div class="grid-lines grid-lines--dark"></div>
+    <div class="wrap phero__in">
+      <nav class="crumb" id="blDCrumb"></nav>
+      <div id="blDHead"></div>
+    </div>
+  </div>
+  <section class="sec">
+    <div class="wrap"><div id="blDBody"></div></div>
+  </section>
+</section>
+
+<!-- ===================== PAGE : CONTACT ===================== -->
+<section class="page" id="page-contact">
+  <div class="phero">
+    <img src="https://sspark.genspark.ai/i/PsrPi1jICm6BXvpy?width=2560" alt="금융지구의 고층 빌딩">
+    <div class="grid-lines grid-lines--dark"></div>
+    <div class="wrap phero__in">
+      <nav class="crumb"><a href="#/" data-nav>Home</a><i>/</i><span>Contact</span></nav>
+      <h1 class="h-xl">Contact</h1>
+      <p class="lead">시스템 구축·운영 유지보수·인프라·솔루션 문의를 남겨주시면 담당자가 검토 후 연락드립니다.</p>
+    </div>
+  </div>
+  <section class="sec">
+    <div class="wrap">
+      <div class="dtl">
+        <div class="reveal">
+          <h2 class="h-md">문의하기</h2>
+          <p class="lead" style="margin:14px 0 26px">아래 정보를 입력해 주세요. 실제 서비스 적용 시 담당자 메일(mrint01@mrint.co.kr)로 전송되도록 연동하는 영역입니다.</p>
+          <form class="frm" onsubmit="return false">
+            <div class="frm__row">
+              <div><label for="c1">회사명 / 기관명</label><input id="c1" type="text" placeholder="예) ○○은행"></div>
+              <div><label for="c2">담당자 성함</label><input id="c2" type="text" placeholder="홍길동"></div>
+            </div>
+            <div class="frm__row">
+              <div><label for="c3">연락처</label><input id="c3" type="tel" placeholder="010-0000-0000"></div>
+              <div><label for="c4">이메일</label><input id="c4" type="email" placeholder="name@company.co.kr"></div>
+            </div>
+            <div><label for="c5">문의 분야</label>
+              <select id="c5">
+                <option>IT OUTSOURCING</option><option>SYSTEM INTEGRATION</option>
+                <option>INFRASTRUCTURE</option><option>SOLUTION</option><option>기타 / 협력 제안</option>
+              </select>
+            </div>
+            <div><label for="c6">문의 내용</label><textarea id="c6" rows="6" placeholder="프로젝트 개요, 일정, 범위 등을 자유롭게 작성해 주세요."></textarea></div>
+            <div style="display:flex;gap:12px;flex-wrap:wrap;align-items:center">
+              <button class="btn btn--blue" type="submit"><span>문의 접수</span>
+                <svg class="btn__ico" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M3 13L13 3M13 3H5M13 3v8"/></svg></button>
+              <span class="mono" style="color:var(--ink-40)">※ 시안이므로 실제 전송은 되지 않습니다.</span>
+            </div>
+          </form>
+        </div>
+        <aside class="dtl__side reveal" data-d="1">
+          <dl>
+            <div><dt>Telephone</dt><dd>02-557-5267</dd></div>
+            <div><dt>Fax</dt><dd>02-557-5268</dd></div>
+            <div><dt>E-mail</dt><dd>mrint01@mrint.co.kr</dd></div>
+            <div><dt>Address</dt><dd>서울시 중구 수표로 23, 1001호, 1101호<br><span style="font-weight:400;color:var(--ink-60);font-size:13px">23 Supyo-ro, Jung-gu, Seoul, Republic of Korea</span></dd></div>
+          </dl>
+        </aside>
+      </div>
+    </div>
+  </section>
+</section>
+</main>
+
+<!-- ===================== FOOTER ===================== -->
+<footer class="ft">
+  <div class="wrap">
+    <div class="ft__grid">
+      <div class="ft__brand">
+        <img src="images/logo.png" alt="미래아이엔텍 MRINT 로고">
+        <p>고객 경쟁력 강화를 위해 끊임없이 노력하는 IT Total Service Provider.<br>(주)미래아이엔텍은 2003년 설립 이래 금융 IT에 특화된 전문기업으로 SI·ITO·컨설팅 등 IT 전 분야에 걸쳐 차별화된 서비스를 제공합니다.</p>
+      </div>
+      <div>
+        <h4>Company</h4>
+        <ul>
+          <li><a href="#/company/mirae" data-nav>Mirae I&amp;Tec</a></li>
+          <li><a href="#/company/team" data-nav>Team</a></li>
+          <li><a href="#/company/news" data-nav>News&amp;Notices</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4>Business</h4>
+        <ul>
+          <li><a href="#/business/projects" data-nav>Projects</a></li>
+          <li><a href="#/business/business-line" data-nav>Business Line</a></li>
+          <li><a href="#/business/business-line/ito" data-nav>IT Outsourcing</a></li>
+          <li><a href="#/business/business-line/infra" data-nav>Infrastructure</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4>Contact</h4>
+        <ul class="ft__ct">
+          <li><b>본사</b>서울시 중구 수표로 23, 1001호, 1101호<br>23 Supyo-ro, Jung-gu, Seoul, Republic of Korea</li>
+          <li><b>Tel / Fax</b>02-557-5267 · 02-557-5268</li>
+          <li><b>E-mail</b>mrint01@mrint.co.kr</li>
+        </ul>
+      </div>
+    </div>
+    <div class="ft__btm">
+      <span>© 2026 MIRAE I&amp;TEC CO., LTD. ALL RIGHTS RESERVED.</span>
+      <span>본 페이지는 홈페이지 리뉴얼 디자인 시안입니다.</span>
+    </div>
+  </div>
+</footer>
+
+<button class="totop" id="totop" type="button" aria-label="맨 위로">
+  <svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M8 14V3M8 3L3 8M8 3l5 5"/></svg>
+</button>
+
+<script src="js/data.js"></script>
+<script src="js/app.js"></script>
+</body>
+</html>
