@@ -234,19 +234,49 @@
         +'<h2>Main Functions</h2>'+list(t.funcs)
         +'<h2>Key Capabilities</h2>'+list(t.caps)+'</div>';
     var rows = t.prj.map(function(p,i){
-      return '<div class="rp'+(i>=RP_LIMIT?' is-hidden':'')+'"><b>'+esc(p.t)+'</b><span>'+p.y+'</span></div>';
+      return '<a class="rp'+(i>=RP_LIMIT?' is-hidden':'')+'" href="#/company/team/'+t.k+'/'+i+'" data-nav><b>'+esc(p.t)+'</b><span>'+p.y+'</span></a>';
     }).join('');
-    $('#tmDBody').innerHTML = intro
-      +'<div class="rp-wrap reveal is-in"><h2 class="h-md">Related Projects <span class="rp-cnt">'+t.prj.length+'</span></h2>'
-      +'<div class="rp-list">'+rows+'</div>'
-      +(t.prj.length>RP_LIMIT? '<button class="btn btn--line btn--sm rp-more" type="button"><span>더보기</span></button>' : '')
-      +'</div>';
+    var rp = t.prj.length
+      ? '<h2 class="h-md">Related Projects <span class="rp-cnt">'+t.prj.length+'</span></h2>'
+        +'<div class="rp-list">'+rows+'</div>'
+        +(t.prj.length>RP_LIMIT? '<button class="btn btn--line btn--sm rp-more" type="button"><span>더보기</span></button>' : '')
+      : '<h2 class="h-md">Related Projects</h2>'
+        +'<div class="rp-empty"><b>프로젝트 소개를 준비하고 있습니다.</b>'
+        +'<p>'+esc(t.ttl)+'의 다양한 연구 활동과 프로젝트를 소개할 예정입니다. 앞으로 이곳에서 연구소의 새로운 소식과 활동을 만나보실 수 있습니다.</p></div>';
+    $('#tmDBody').innerHTML = intro+'<div class="rp-wrap reveal is-in">'+rp+'</div>';
     var more = $('#tmDBody .rp-more');
     if(more) more.addEventListener('click', function(){
       $$('#tmDBody .rp.is-hidden').forEach(function(r){ r.classList.remove('is-hidden'); });
       more.parentNode.removeChild(more);
     });
     document.title = name+' | 미래아이엔텍 MRINT';
+  }
+  var PH = '설명이 들어갈 내용입니다.';
+  function renderTeamProj(k, i){
+    var t=null; TEAMS.forEach(function(x){ if(x.k===k) t=x; });
+    var p = t && t.prj[i];
+    if(!p){ location.hash = t ? '#/company/team/'+t.k : '#/company/team'; return; }
+    var src=null; PROJECTS.forEach(function(x){ if(x.t===p.t) src=x; });
+    function v(f){ return p[f] || (src && src[f]) || ''; }
+    function txt(f){ return v(f) ? esc(v(f)) : '<span style="color:var(--ink-40)">'+PH+'</span>'; }
+    var type = v('k');
+    var img = p.img || (type==='SI'?'https://sspark.genspark.ai/i/3PI5h8miWB31PKm5?width=2560':(type==='ITO'?'https://sspark.genspark.ai/i/LQUexAFNNy5Sb1S4?width=2560':'https://sspark.genspark.ai/i/hh772FOUwVOPvuJM?width=2560'));
+    $('#tpCrumb').innerHTML='<a href="#/" data-nav>Home</a><i>/</i><a href="#/company/team" data-nav>Team</a><i>/</i><span>'+esc(t.ttl)+'</span><i>/</i><span>Related Projects</span>';
+    $('#tpHead').innerHTML='<h1 class="h-lg" style="font-size:clamp(26px,3.4vw,44px);max-width:30ch">'+esc(p.t)+'</h1>'
+      +'<div class="phero__meta">'+(type?'<span class="chip chip--blue">'+esc(type)+'</span>':'')
+      +(v('s')?'<span class="chip">'+esc(v('s'))+'</span>':'')+'<span class="chip">'+p.y+'</span><span class="chip">'+esc(t.ttl)+'</span></div>';
+    $('#tpBody').innerHTML='<div class="dtl__body reveal is-in">'
+      +'<figure class="dtl__fig" style="margin-top:0"><img src="'+esc(img)+'" alt="'+esc(p.t)+' 관련 이미지"><figcaption>'+esc(p.t)+(v('cl')?' — '+esc(v('cl')):'')+'</figcaption></figure>'
+      +'<h2>Project Overview</h2><p>'+txt('ov')+'</p>'
+      +'<h2>Description</h2><p>'+txt('desc')+'</p>'
+      +'</div><aside class="dtl__side reveal is-in"><dl>'
+      +'<div><dt>Type</dt><dd>'+txt('k')+'</dd></div>'
+      +'<div><dt>Status</dt><dd>'+txt('s')+'</dd></div>'
+      +'<div><dt>Name</dt><dd>'+esc(p.t)+'</dd></div>'
+      +'<div><dt>Period</dt><dd>'+txt('p')+'</dd></div>'
+      +'<div><dt>Client</dt><dd>'+txt('cl')+'</dd></div>'
+      +'</dl></aside>';
+    return p.t+' | 미래아이엔텍 MRINT';
   }
 
   /* ---------- ROUTER ---------- */
@@ -261,6 +291,7 @@
     var base = 'page-home', title = '미래아이엔텍 MRINT | 금융 IT Total Service Provider';
     if(parts.length===0){ base='page-home'; }
     else if(parts[0]==='company' && parts[1]==='mirae'){ base='page-mirae'; title='Mirae I&Tec | 미래아이엔텍 MRINT'; }
+    else if(parts[0]==='company' && parts[1]==='team' && parts[2] && parts[3]!==undefined){ base='page-teamProj'; title=renderTeamProj(parts[2], parseInt(parts[3],10)) || title; }
     else if(parts[0]==='company' && parts[1]==='team' && parts[2]){ base='page-teamDetail'; renderTeamDetail(parts[2]); }
     else if(parts[0]==='company' && parts[1]==='team'){ base='page-team'; title='Team | 미래아이엔텍 MRINT'; }
     else if(parts[0]==='company' && parts[1]==='news' && parts[2]){ base='page-newsDetail'; renderNewsDetail(parts[2]); }
