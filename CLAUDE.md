@@ -33,7 +33,7 @@ To preview, open `index.html` in a browser. It works from `file://` because the 
 4. **`js/app.js` (one IIFE):**
    - **Hash router.** `route()` maps `#/`, `#/company/{mirae,team[/:key[/:index]],news[/:id]}`, `#/business/{projects[/:index],business-line[/:key]}` and `#/contact` to a page id. `show()` toggles `.is-on` and re-runs `observeReveals()`. Project detail routes use the **array index** of `PROJECTS`, so reordering or inserting projects changes their URLs.
    - Renderers (`renderNews`, `renderProjects`, `renderBL`, `render*Detail`) build HTML strings. Escape any data you interpolate with `esc()`. Internal links carry `data-nav` so the mobile nav closes on click.
-   - Filters are derived automatically from the data: news by year. Project filters are a fixed list (`PROJ_FILTERS` in `app.js`): Type (`k`), Industry (`c`), Status (`s`); a `PROJECTS` value outside those lists only shows under 전체.
+   - The News&Notices list has no filters and news rows (list and home) don't show `tag` (`.row--notag`). Project filters are a fixed list (`PROJ_FILTERS` in `app.js`): Type (`k`), Industry (`c`), Status (`s`); a `PROJECTS` value outside those lists only shows under 전체.
    - Scroll effects: `.reveal` elements get `.is-in` through an IntersectionObserver. `.nums b[data-count]` elements animate as counters (`data-plain="1"` turns off zero-padding).
 
 ## Content constraints

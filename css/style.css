@@ -299,6 +299,8 @@ hero__grid.{position:absolute;inset:0;z-index:1;pointer-events:none;opacity:.5;
   padding:clamp(18px,2.2vw,26px) clamp(12px,1.6vw,20px);border-bottom:1px solid var(--hair);position:relative;transition:background .4s var(--ease)}
 .sec--dark .row,.sec--mid .row{border-color:var(--hair-l)}
 @media(min-width:860px){.row{grid-template-columns:96px 128px minmax(0,1fr) auto}}
+.row--notag .row__date{grid-column:1/-1}
+@media(min-width:860px){.row--notag{grid-template-columns:96px minmax(0,1fr) auto}.row--notag .row__date{grid-column:auto}}
 .row::before{content:"";position:absolute;left:0;top:0;bottom:0;width:2px;background:var(--blue);transform:scaleY(0);transform-origin:top;transition:transform .45s var(--ease)}
 .row:hover::before{transform:scaleY(1)}
 .row:hover{background:var(--gray)}

@@ -86,9 +86,8 @@
 
   /* ---------- renderers ---------- */
   function newsRow(n){
-    return '<a class="row" href="#/company/news/'+n.id+'" data-nav>'
+    return '<a class="row row--notag" href="#/company/news/'+n.id+'" data-nav>'
       +'<span class="row__date">'+n.date+'</span>'
-      +'<span class="row__tag">'+esc(n.tag)+'</span>'
       +'<span class="row__ttl">'+esc(n.ttl)+'</span>'
       +'<span class="row__arw">'+ARROW.replace('<svg','<svg width="22" height="22"')+'</span></a>';
   }
@@ -96,17 +95,9 @@
     var h = $('#homeNews'); if(!h) return;
     h.innerHTML = NEWS.slice(0,4).map(newsRow).join('');
   }
-  var newsYear = 'ALL';
   function renderNews(){
-    var f = $('#newsFilters'), l = $('#newsList'); if(!l) return;
-    var years = ['ALL'].concat(NEWS.map(function(n){return n.date.slice(0,4);}).filter(function(v,i,a){return a.indexOf(v)===i;}));
-    f.innerHTML = years.map(function(y){
-      return '<button class="fbtn'+(y===newsYear?' is-on':'')+'" type="button" data-ny="'+y+'">'+(y==='ALL'?'전체':y+'년')
-        +'<b>'+(y==='ALL'?NEWS.length:NEWS.filter(function(n){return n.date.indexOf(y)===0;}).length)+'</b></button>';
-    }).join('');
-    $$('[data-ny]',f).forEach(function(b){ b.addEventListener('click', function(){ newsYear=b.getAttribute('data-ny'); renderNews(); }); });
-    var rows = NEWS.filter(function(n){ return newsYear==='ALL' || n.date.indexOf(newsYear)===0; });
-    l.innerHTML = rows.map(newsRow).join('');
+    var l = $('#newsList'); if(!l) return;
+    l.innerHTML = NEWS.map(newsRow).join('');
   }
   // 프로젝트 필터 카테고리 (고정 목록) — 키는 PROJECTS 의 필드명
   var PROJ_FILTERS = [
