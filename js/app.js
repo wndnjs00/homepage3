@@ -223,19 +223,41 @@
     $('#blDCrumb').innerHTML='<a href="#/" data-nav>Home</a><i>/</i><a href="#/business/business-line" data-nav>Business Line</a><i>/</i><span>'+esc(b.en)+'</span>';
     $('#blDHead').innerHTML='<h1 class="h-xl">'+esc(b.ttl)+'</h1><p class="lead">'+esc(b.desc)+'</p>'
       +'<div class="phero__meta"><span class="chip chip--blue">'+b.no+'</span>'+b.pts.slice(0,4).map(function(x){return '<span class="chip">'+esc(x)+'</span>';}).join('')+'</div>';
-    $('#blDBody').innerHTML='<div class="dtl"><div class="dtl__body reveal is-in">'
-      +'<h2>'+esc(b.en)+' 개요</h2><p>'+esc(b.sum)+'</p>'
+    function paras(v){ return [].concat(v).map(function(x){ return '<p>'+esc(x)+'</p>'; }).join(''); }
+    function list(arr){ return '<ul>'+arr.map(function(x){ return '<li>'+esc(x).replace(/\n/g,'<br>')+'</li>'; }).join('')+'</ul>'; }
+    var ph = '<p style="color:var(--ink-40)">'+PH+'</p>';
+    var feats = b.feats, clients = b.clients;
+    $('#blDBody').innerHTML='<div class="dtl__body bld--ink reveal is-in">'
+      +'<h2>'+esc(b.en)+' 개요</h2>'+paras(b.sum)
       + b.secs.map(function(s){
-          return '<h2>'+esc(s.h)+'</h2><p>'+esc(s.p)+'</p>'
-            + (s.li && s.li.length? '<ul>'+s.li.map(function(x){return '<li>'+esc(x)+'</li>';}).join('')+'</ul>' : '');
+          return '<h2>'+esc(s.h)+'</h2>'+paras(s.p) + (s.li && s.li.length? list(s.li) : '');
         }).join('')
       +'<figure class="dtl__fig"><img src="'+b.img+'" alt="'+esc(b.ttl)+' 관련 이미지"><figcaption>'+esc(b.ttl)+' — '+esc(b.en)+'</figcaption></figure>'
-      +'<p style="margin-top:26px;display:flex;gap:10px;flex-wrap:wrap"><a class="btn btn--blue btn--sm" href="#/contact" data-nav><span>상담 문의하기</span></a><a class="btn btn--line btn--sm" href="#/business/projects" data-nav><span>관련 프로젝트 보기</span></a></p>'
-      +'</div><aside class="dtl__side reveal is-in"><dl>'
-      +'<div><dt>Business Line</dt><dd>'+esc(b.ttl)+'</dd></div>'
-      +'<div><dt>Scope</dt><dd>'+b.pts.map(esc).join(' · ')+'</dd></div>'
-      +'<div><dt>Contact</dt><dd>02-557-5267<br>mrint01@mrint.co.kr</dd></div>'
-      +'</dl><dl style="border-top:1px solid var(--hair)"><a class="btn btn--line btn--sm" href="#/business/projects" data-nav><span>프로젝트 보기</span></a></dl></aside></div>';
+      + (!feats ? '' : '<h2>Service Features</h2>'
+      + (feats.length
+        ? '<div class="filters">'
+          + feats.map(function(f,i){ return '<button class="fbtn'+(i?'':' is-on')+'" type="button" data-sf="'+i+'">'+esc(f.h)+'</button>'; }).join('')
+          +'</div>'
+          + feats.map(function(f,i){
+              return '<div class="sfeat" data-sfp="'+i+'"'+(i?' hidden':'')+'>'
+                +(f.img ? '<figure class="dtl__fig" style="margin-top:0"><img src="'+esc(f.img)+'" alt="'+esc(f.h)+' 관련 이미지"><figcaption>'+esc(f.h)+'</figcaption></figure>' : '')
+                +(f.p ? paras(f.p) : '')
+                +(f.li && f.li.length ? list(f.li) : (f.p ? '' : ph))
+                +'</div>';
+            }).join('')
+        : ph))
+      + (!clients ? '' : '<h2>Main clients</h2>'
+      + (clients.length
+        ? '<div class="logos">'+clients.map(function(c){
+            return '<div title="'+esc(c.n)+'">'+(c.img ? '<img src="'+esc(c.img)+'" alt="'+esc(c.n)+' 로고" onerror="this.remove()">' : '')+'</div>';
+          }).join('')+'</div>'
+        : ph))
+      +'</div>';
+    $$('[data-sf]',$('#blDBody')).forEach(function(btn){ btn.addEventListener('click', function(){
+      var n=btn.getAttribute('data-sf');
+      $$('[data-sf]',$('#blDBody')).forEach(function(x){ x.classList.toggle('is-on', x===btn); });
+      $$('[data-sfp]',$('#blDBody')).forEach(function(p){ p.hidden = p.getAttribute('data-sfp')!==n; });
+    }); });
     document.title = b.ttl+' | 미래아이엔텍 MRINT';
   }
   var RP_LIMIT = 5;
