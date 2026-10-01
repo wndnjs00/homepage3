@@ -217,6 +217,37 @@
       +'</dl><dl style="border-top:1px solid var(--hair)"><a class="btn btn--line btn--sm" href="#/business/projects" data-nav><span>프로젝트 보기</span></a></dl></aside></div>';
     document.title = b.ttl+' | 미래아이엔텍 MRINT';
   }
+  var RP_LIMIT = 5;
+  function renderTeamDetail(k){
+    var t=null; TEAMS.forEach(function(x){ if(x.k===k) t=x; });
+    if(!t){ location.hash='#/company/team'; return; }
+    var name = t.name ? t.name+' '+t.ttl : t.ttl;
+    function list(arr){ return '<ul>'+arr.map(function(x){return '<li>'+esc(x)+'</li>';}).join('')+'</ul>'; }
+    $('#tmDCrumb').innerHTML='<a href="#/" data-nav>Home</a><i>/</i><a href="#/company/team" data-nav>Team</a><i>/</i><span>'+esc(t.ttl)+'</span>';
+    $('#tmDHead').innerHTML='<h1 class="h-xl">'+esc(name)+'</h1><p class="lead">'+esc(t.en)+'</p>'
+      +'<div class="phero__meta"><span class="chip chip--blue">'+(t.k==='ceo'?'CEO':'Team')+'</span><span class="chip">미래아이엔텍</span></div>';
+    var intro = t.k==='ceo'
+      ? '<div class="ceo"><figure class="ceo__ph reveal is-in" style="margin:0"><img src="'+t.img+'" alt="미래아이엔텍 '+esc(name)+' 사진"><figcaption>'+esc(t.name)+' · 대표이사 (CEO)</figcaption></figure>'
+        +'<div class="dtl__body reveal is-in">'+t.bio.map(function(s){ return '<h2>'+esc(s.h)+'</h2>'+list(s.li); }).join('')+'</div></div>'
+      : '<div class="dtl__body tmd__body reveal is-in">'
+        +'<h2>Team Introduction</h2>'+t.intro.map(function(p){return '<p>'+esc(p)+'</p>';}).join('')
+        +'<h2>Main Functions</h2>'+list(t.funcs)
+        +'<h2>Key Capabilities</h2>'+list(t.caps)+'</div>';
+    var rows = t.prj.map(function(p,i){
+      return '<div class="rp'+(i>=RP_LIMIT?' is-hidden':'')+'"><b>'+esc(p.t)+'</b><span>'+p.y+'</span></div>';
+    }).join('');
+    $('#tmDBody').innerHTML = intro
+      +'<div class="rp-wrap reveal is-in"><h2 class="h-md">Related Projects <span class="rp-cnt">'+t.prj.length+'</span></h2>'
+      +'<div class="rp-list">'+rows+'</div>'
+      +(t.prj.length>RP_LIMIT? '<button class="btn btn--line btn--sm rp-more" type="button"><span>더보기</span></button>' : '')
+      +'</div>';
+    var more = $('#tmDBody .rp-more');
+    if(more) more.addEventListener('click', function(){
+      $$('#tmDBody .rp.is-hidden').forEach(function(r){ r.classList.remove('is-hidden'); });
+      more.parentNode.removeChild(more);
+    });
+    document.title = name+' | 미래아이엔텍 MRINT';
+  }
 
   /* ---------- ROUTER ---------- */
   function show(id){
@@ -230,6 +261,7 @@
     var base = 'page-home', title = '미래아이엔텍 MRINT | 금융 IT Total Service Provider';
     if(parts.length===0){ base='page-home'; }
     else if(parts[0]==='company' && parts[1]==='mirae'){ base='page-mirae'; title='Mirae I&Tec | 미래아이엔텍 MRINT'; }
+    else if(parts[0]==='company' && parts[1]==='team' && parts[2]){ base='page-teamDetail'; renderTeamDetail(parts[2]); }
     else if(parts[0]==='company' && parts[1]==='team'){ base='page-team'; title='Team | 미래아이엔텍 MRINT'; }
     else if(parts[0]==='company' && parts[1]==='news' && parts[2]){ base='page-newsDetail'; renderNewsDetail(parts[2]); }
     else if(parts[0]==='company' && parts[1]==='news'){ base='page-news'; title='News&Notices | 미래아이엔텍 MRINT'; renderNews(); }
